@@ -124,4 +124,4 @@ kittybot/
 
 ## Лицензия
 
-MIT License 
+MIT License
