@@ -19,8 +19,10 @@ logger = logging.getLogger(__name__)
 # Загружаем переменные окружения
 load_dotenv()
 
-# Получаем токен из переменных окружения или используем новый токен
-secret_token = os.getenv('TOKEN', '8080191792:AAGsMYDNl4qkCA6DrV--kxap-DKYFS4Ndic')
+# Получаем токен из переменных окружения
+secret_token = os.getenv('TOKEN')
+if not secret_token:
+    raise RuntimeError("TELEGRAM TOKEN not set in .env!")
 bot = TeleBot(token=secret_token)
 
 # URL для получения изображений котиков

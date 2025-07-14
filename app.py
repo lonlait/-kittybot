@@ -25,6 +25,9 @@ secret_token = os.getenv('TOKEN')
 if not secret_token:
     raise RuntimeError("TELEGRAM TOKEN not set in .env!")
 
+# Инициализируем бота
+bot = TeleBot(token=secret_token)
+
 # URL для получения изображений котиков
 CAT_API_URL = 'https://api.thecatapi.com/v1/images/search'
 DOG_API_URL = 'https://api.thedogapi.com/v1/images/search'

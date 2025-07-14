@@ -2,7 +2,6 @@
 # run_bot.py - Скрипт для запуска бота через cron на PythonAnywhere
 
 import os
-import sys
 import logging
 from telebot import TeleBot, types
 import requests
@@ -23,7 +22,9 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 # Получаем токен
-secret_token = os.getenv('TOKEN', '8080191792:AAGsMYDNl4qkCA6DrV--kxap-DKYFS4Ndic')
+secret_token = os.getenv('TOKEN')
+if not secret_token:
+    raise RuntimeError("TELEGRAM TOKEN not set in .env!")
 bot = TeleBot(token=secret_token)
 
 # URL для получения изображений котиков
