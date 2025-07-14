@@ -1,10 +1,10 @@
-# Деплой на PythonAnywhere 🚀
+# Deploying to PythonAnywhere 🚀
 
-## Пошаговая инструкция
+## Step-by-step Guide
 
-### 1. Подготовка проекта
+### 1. Project Preparation
 
-1. Загрузите все файлы проекта на GitHub:
+1. Upload all project files to GitHub:
    ```bash
    git init
    git add .
@@ -13,150 +13,150 @@
    git push -u origin main
    ```
 
-### 2. Настройка PythonAnywhere
+### 2. PythonAnywhere Setup
 
-1. **Зарегистрируйтесь на PythonAnywhere** (https://www.pythonanywhere.com/)
-2. **Войдите в аккаунт** и перейдите в раздел "Web"
+1. **Register on PythonAnywhere** (https://www.pythonanywhere.com/)
+2. **Log in** and go to the "Web" section
 
-### 3. Создание веб-приложения
+### 3. Create a Web App
 
-1. **Нажмите "Add a new web app"**
-2. **Выберите "Flask"** в качестве фреймворка
-3. **Выберите Python 3.9** (или новее)
-4. **Укажите путь к проекту**: `/home/yourusername/kittybot`
+1. **Click "Add a new web app"**
+2. **Select "Flask"** as the framework
+3. **Choose Python 3.9** (or newer)
+4. **Set the project path**: `/home/yourusername/kittybot`
 
-### 4. Загрузка кода
+### 4. Upload the Code
 
-1. **Откройте Bash консоль** на PythonAnywhere
-2. **Клонируйте репозиторий**:
+1. **Open a Bash console** on PythonAnywhere
+2. **Clone the repository**:
    ```bash
    cd /home/yourusername
    git clone https://github.com/yourusername/kittybot.git
    cd kittybot
    ```
 
-### 5. Установка зависимостей
+### 5. Install Dependencies
 
-1. **Создайте виртуальное окружение**:
+1. **Create a virtual environment**:
    ```bash
    python3.9 -m venv venv
    source venv/bin/activate
    pip install -r requirements.txt
    ```
 
-### 6. Настройка переменных окружения
+### 6. Set Environment Variables
 
-1. **Создайте файл `.env`**:
+1. **Create a `.env` file**:
    ```bash
    echo "TOKEN=8080191792:AAGsMYDNl4qkCA6DrV--kxap-DKYFS4Ndic" > .env
    echo "PYTHONANYWHERE_SITE=yourusername.pythonanywhere.com" >> .env
    ```
 
-### 7. Настройка WSGI файла
+### 7. Configure the WSGI File
 
-1. **Откройте WSGI файл** в разделе "Web" → "Code" → "WSGI configuration file"
-2. **Замените содержимое** на:
+1. **Open the WSGI file** in the "Web" → "Code" → "WSGI configuration file" section
+2. **Replace its contents** with:
 
 ```python
 import sys
 import os
 
-# Добавляем путь к проекту
+# Add project path
 path = '/home/yourusername/kittybot'
 if path not in sys.path:
     sys.path.append(path)
 
-# Активируем виртуальное окружение
+# Activate virtual environment
 activate_this = '/home/yourusername/kittybot/venv/bin/activate_this.py'
 with open(activate_this) as file_:
     exec(file_.read(), dict(__file__=activate_this))
 
-# Импортируем приложение
+# Import the app
 from app import app as application
 ```
 
-### 8. Настройка веб-приложения
+### 8. Web App Settings
 
-1. **В разделе "Web"** → **"Code"**:
+1. **In the "Web" → "Code" section**:
    - **Source code**: `/home/yourusername/kittybot`
    - **Working directory**: `/home/yourusername/kittybot`
-   - **WSGI configuration file**: оставьте как есть
+   - **WSGI configuration file**: leave as is
 
-2. **В разделе "Web"** → **"Files"**:
-   - Убедитесь, что все файлы загружены
+2. **In the "Web" → "Files" section**:
+   - Make sure all files are uploaded
 
-### 9. Установка webhook
+### 9. Set the Webhook
 
-1. **Перейдите на ваш сайт**: `https://yourusername.pythonanywhere.com/set_webhook`
-2. **Должно появиться сообщение**: "Webhook установлен: https://yourusername.pythonanywhere.com/webhook"
+1. **Go to your site**: `https://yourusername.pythonanywhere.com/set_webhook`
+2. **You should see a message**: "Webhook set: https://yourusername.pythonanywhere.com/webhook"
 
-### 10. Перезапуск приложения
+### 10. Restart the App
 
-1. **Нажмите "Reload"** в разделе "Web"
-2. **Проверьте логи** в разделе "Web" → "Log files" → "Error log"
+1. **Click "Reload"** in the "Web" section
+2. **Check the logs** in "Web" → "Log files" → "Error log"
 
-## Проверка работы
+## Testing the Bot
 
-1. **Откройте сайт**: `https://yourusername.pythonanywhere.com`
-2. **Должна появиться страница** с информацией о боте
-3. **Найдите бота в Telegram**: `@CatSuperpositionBot`
-4. **Отправьте команду** `/start`
+1. **Open the site**: `https://yourusername.pythonanywhere.com`
+2. **You should see a page** with information about the bot
+3. **Find the bot in Telegram**: `@CatSuperpositionBot`
+4. **Send the command** `/start`
 
-## Устранение неполадок
+## Troubleshooting
 
-### Ошибка "Module not found"
-- Убедитесь, что виртуальное окружение активировано в WSGI файле
-- Проверьте, что все зависимости установлены
+### "Module not found" Error
+- Make sure the virtual environment is activated in the WSGI file
+- Check that all dependencies are installed
 
-### Ошибка "Token not found"
-- Проверьте файл `.env` в корне проекта
-- Убедитесь, что токен правильный
+### "Token not found" Error
+- Check the `.env` file in the project root
+- Make sure the token is correct
 
-### Бот не отвечает
-- Проверьте webhook: `https://yourusername.pythonanywhere.com/set_webhook`
-- Посмотрите логи ошибок в разделе "Web"
+### Bot not responding
+- Check the webhook: `https://yourusername.pythonanywhere.com/set_webhook`
+- Check the error logs in the "Web" section
 
-### Ошибка 500
-- Проверьте логи в разделе "Web" → "Log files"
-- Убедитесь, что все импорты корректны
+### 500 Error
+- Check the logs in "Web" → "Log files"
+- Make sure all imports are correct
 
-## Полезные команды
+## Useful Commands
 
 ```bash
-# Проверка статуса приложения
+# Check app status
 curl https://yourusername.pythonanywhere.com
 
-# Установка webhook
+# Set webhook
 curl https://yourusername.pythonanywhere.com/set_webhook
 
-# Удаление webhook
+# Remove webhook
 curl https://yourusername.pythonanywhere.com/remove_webhook
 
-# Просмотр логов
+# View logs
 tail -f /var/log/yourusername.pythonanywhere.com.error.log
 ```
 
-## Мониторинг
+## Monitoring
 
-- **Логи ошибок**: Web → Log files → Error log
-- **Логи доступа**: Web → Log files → Access log
-- **Статус приложения**: Web → Status
+- **Error logs**: Web → Log files → Error log
+- **Access logs**: Web → Log files → Access log
+- **App status**: Web → Status
 
-## Обновление бота
+## Updating the Bot
 
-1. **Загрузите изменения на GitHub**
-2. **В PythonAnywhere**:
+1. **Push changes to GitHub**
+2. **On PythonAnywhere**:
    ```bash
    cd /home/yourusername/kittybot
    git pull
    source venv/bin/activate
    pip install -r requirements.txt
    ```
-3. **Перезапустите приложение** (Reload)
+3. **Restart the app** (Reload)
 
-## Важные замечания
+## Important Notes
 
-- **Бесплатный аккаунт** имеет ограничения на CPU время
-- **Бот будет работать только при активных запросах**
-- **Для постоянной работы** рассмотрите платные планы
-- **Регулярно проверяйте логи** на наличие ошибок 
+- **Free accounts** have CPU time limits
+- **The bot will only work when there are active requests**
+- **For persistent operation**, consider paid plans
+- **Regularly check the logs** for errors 
