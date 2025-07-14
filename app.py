@@ -54,7 +54,8 @@ def get_new_image():
                 return data[0].get('url')
         except Exception as backup_error:
             logger.error(f"Ошибка при получении резервного изображения: {backup_error}")
-            return None
+            # Возвращаем заглушку, если оба API не сработали
+            return "https://via.placeholder.com/600x400?text=Котик+убежал+😿"
 
 
 @bot.message_handler(commands=['start'])
